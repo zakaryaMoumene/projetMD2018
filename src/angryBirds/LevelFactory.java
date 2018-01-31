@@ -20,13 +20,14 @@ public class LevelFactory {
 
         Game level = new Game(observer);
 
-        level.setNbBirds(5);
-        level.setNbPigs(3);
+        
+        level.setNbPigs((int) (Math.random()*5) +1);
+        level.setNbBirds((int)(level.getNbPigs()+Math.random()*3));
 
         level.setGravity(aBuilder.createGravity(0.1));
         level.setCollision(aBuilder.createCollisionEngine());
 
-        // placement des cochons 
+        // placement des cochons
         level.setPigs(new ArrayList<Pig>());
         for (int i = 0; i < level.getNbPigs(); i++) {
             Pig p = (Pig) cBuilder.buildCharacter("pig", "pig.png");
@@ -46,43 +47,45 @@ public class LevelFactory {
         GravityInverser g = ((GravityInverser) cBuilder.buildCharacter("gInverser",
                 level.getGravity(), "gInverser.png"));
 
-        
         // placement des persos secodnaires
         w.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .2);
         w.setPositionY(Math.random() * (Window.resolutionY * .1) + Window.resolutionY * .5);
-        
+
         g.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .4);
         g.setPositionY(Math.random() * (Window.resolutionY * .1) + Window.resolutionY * .3);
-        
+
         f.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .5);
         f.setPositionY(Math.random() * (Window.resolutionY * .1) + Window.resolutionY * .5);
-        
-        m.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .7);
+
+        m.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .6);
         m.setPositionY(Math.random() * (Window.resolutionY * .1) + Window.resolutionY * .3);
 
-//        g.setPositionX(450);
-//        g.setPositionY(300);
-//
-//        f.setPositionX(500);
-//        f.setPositionY(400);
-//
-//        m.setPositionX(400);
-//        m.setPositionY(250);
+        // g.setPositionX(450);
+        // g.setPositionY(300);
+        //
+        // f.setPositionX(500);
+        // f.setPositionY(400);
+        //
+        // m.setPositionX(400);
+        // m.setPositionY(250);
 
         // ajouter le tout dans le jeu
-        level.getCharacters().add(w);
-        level.getCharacters().add(f);
-        level.getCharacters().add(m);
-        level.getCharacters().add(g);
+        if (Math.random() > 0.2)
+            level.getCharacters().add(w);
+        if (Math.random() > 0.5)
+            level.getCharacters().add(f);
+        if (Math.random() > 0.2)
+            level.getCharacters().add(m);
+        if (Math.random() > 0.6)
+            level.getCharacters().add(g);
 
         return level;
 
     }
 
-    
-    // cette méthode lit un niveau qui a été sérialisé au préalable 
+    // cette méthode lit un niveau qui a été sérialisé au préalable
     public Game readLevel(String fileName, Observer observer) {
-      
+
         Game level = new Game(observer);
 
         try {
@@ -109,7 +112,7 @@ public class LevelFactory {
         return level;
     }
 
-    // cette méthode sérialise un niveau 
+    // cette méthode sérialise un niveau
     public void exportLevel(Game level, String levelName) {
         FileOutputStream fos;
         try {
