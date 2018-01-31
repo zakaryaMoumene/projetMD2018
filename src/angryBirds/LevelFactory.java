@@ -8,10 +8,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+// class qui permet de créer des niveau de jeu
 public class LevelFactory {
 
+    // méthode de génération semi-aléatoire
     public Game buildRandomLevel(Observer observer) {
 
+        // besoin des deux builders
         CharacterBuilder cBuilder = new CharacterBuilder();
         ArenaComponentBuilder aBuilder = new ArenaComponentBuilder();
 
@@ -23,6 +26,7 @@ public class LevelFactory {
         level.setGravity(aBuilder.createGravity(0.1));
         level.setCollision(aBuilder.createCollisionEngine());
 
+        // placement des cochons 
         level.setPigs(new ArrayList<Pig>());
         for (int i = 0; i < level.getNbPigs(); i++) {
             Pig p = (Pig) cBuilder.buildCharacter("pig", "pig.png");
@@ -35,12 +39,15 @@ public class LevelFactory {
 
         level.getCharacters().addAll(level.getPigs());
 
+        // création des persos secondaires
         Wind w = ((Wind) cBuilder.buildCharacter("wind", .2, "wind.gif"));
         Fire f = ((Fire) cBuilder.buildCharacter("fire", "fire.gif"));
         Mushroom m = ((Mushroom) cBuilder.buildCharacter("mushroom", 2.0, "mushroom.png"));
         GravityInverser g = ((GravityInverser) cBuilder.buildCharacter("gInverser",
                 level.getGravity(), "gInverser.png"));
 
+        
+        // placement des persos secodnaires
         w.setPositionX(Math.random() * (Window.resolutionX * .1) + Window.resolutionX * .2);
         w.setPositionY(Math.random() * (Window.resolutionY * .1) + Window.resolutionY * .5);
         
@@ -62,6 +69,7 @@ public class LevelFactory {
 //        m.setPositionX(400);
 //        m.setPositionY(250);
 
+        // ajouter le tout dans le jeu
         level.getCharacters().add(w);
         level.getCharacters().add(f);
         level.getCharacters().add(m);
@@ -71,7 +79,10 @@ public class LevelFactory {
 
     }
 
+    
+    // cette méthode lit un niveau qui a été sérialisé au préalable 
     public Game readLevel(String fileName, Observer observer) {
+      
         Game level = new Game(observer);
 
         try {
@@ -98,6 +109,7 @@ public class LevelFactory {
         return level;
     }
 
+    // cette méthode sérialise un niveau 
     public void exportLevel(Game level, String levelName) {
         FileOutputStream fos;
         try {

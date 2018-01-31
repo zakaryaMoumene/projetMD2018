@@ -1,5 +1,7 @@
 package angryBirds;
 
+
+// nous permet de construire les personnages nécéssaires au jeu
 public class CharacterBuilder {
 
     public Character buildCharacter(String characterType, Object... params) {

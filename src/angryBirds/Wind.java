@@ -2,6 +2,8 @@ package angryBirds;
 
 import java.io.Serializable;
 
+
+// pousse vers la droite l'oiseau qui s'en approche
 public class Wind extends Character implements Serializable{
 
     /**
@@ -41,6 +43,12 @@ public class Wind extends Character implements Serializable{
     @Override
     public String toString() {
         return "Wind [pushStrength=" + pushStrength + "]";
+    }
+
+    @Override
+    public void outOfBoundaries() {
+        // TODO Auto-generated method stub
+        
     }
     
     

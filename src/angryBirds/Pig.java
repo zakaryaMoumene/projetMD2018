@@ -38,6 +38,12 @@ public class Pig extends Character  {
         return "Pig [isActivated()=" + isActivated() + "]";
     }
 
+    @Override
+    public void outOfBoundaries() {
+        // TODO Auto-generated method stub
+        
+    }
+
    
     
     

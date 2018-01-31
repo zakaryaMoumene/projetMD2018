@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+// La classe jeu qui va contenir nos mécanique de jeu
 public class Game implements Runnable, Serializable {
 
     /**
@@ -21,6 +22,7 @@ public class Game implements Runnable, Serializable {
     private Integer nbBirds;
     private Integer nbPigs;
     private Gravity gravity;
+
     private transient String message;
 
     private transient int score; // nombre de fois oÃ¹ le joueur a gagnÃ©
@@ -28,7 +30,7 @@ public class Game implements Runnable, Serializable {
                                         // bord ou le
     private transient boolean selecting;
 
-    private transient  Observer  observer;
+    private transient Observer observer;
     private transient CollisionEngine collision;
     private transient LevelManager manager = new LevelManager();
 
@@ -48,7 +50,9 @@ public class Game implements Runnable, Serializable {
         message = "Choisissez l'angle et la vitesse.";
     }
 
-    // fin de partie
+    // appelé après collision de l'oiseau. 3 cas possibles : il reste encore des
+    // oiseaux à tirer - il n'en reste plus et tous les cochons ont été touchés-
+    // il n'en reste plus mais il reste des cochons
     void stop() {
         deadBirds.push(birds.pop());
         deadBirds.peek().setVelocityY(deadBirds.peek().getVelocityY() * -0.6);
@@ -61,6 +65,8 @@ public class Game implements Runnable, Serializable {
 
     }
 
+    // vérifie si l'on a gagné en vérifier simplement s'il reste des cochons
+    // vivants
     boolean hasWon() {
         for (Pig p : pigs)
             if (p.isActivated())
@@ -68,9 +74,10 @@ public class Game implements Runnable, Serializable {
         return true;
     }
 
+    // Tirer l'oiseau
     public boolean shootBird(int x, int y) {
         if (isGameOver() && hasWon()) {
-            message = "Bsahtek";
+            message = "BRAVO";
             return true;
         } else if (isGameOver()) {
             manager.startLevel(this);
@@ -95,6 +102,7 @@ public class Game implements Runnable, Serializable {
             } catch (InterruptedException e) {
             }
 
+            // continuer d'afficher les oisaux tirés ( et déjà morts)
             for (Bird b : deadBirds) {
                 b.setPositionX(b.getPositionX() + b.getVelocityX());
                 b.setPositionY(b.getPositionY() + b.getVelocityY());
@@ -110,15 +118,17 @@ public class Game implements Runnable, Serializable {
                 birds.peek()
                         .setPositionY(birds.peek().getPositionY() + birds.peek().getVelocityY());
 
+                // effet de la gravité
                 gravity.affect(birds.peek());
 
+                // Mettre à jour l'apparence de l'oiseau
                 birds.peek().updateBirdAppearance();
 
+                // vérifier les collision
                 int type = collision.checkCollisions();
 
                 if (type == -1) {
                     message = "Perdu : cliquez pour recommencer.";
-                    birds.peek().setDesign("bird_fail.png");
                     stop();
 
                 } else if (!birds.peek().isActivated()) {
@@ -250,9 +260,5 @@ public class Game implements Runnable, Serializable {
                 + gravity + ", observer=" + observer + ", collision=" + collision + ", manager="
                 + manager + "]";
     }
-
-   
-    
-    
 
 }

@@ -9,6 +9,8 @@ public class Gravity implements Serializable{
      */
     private static final long serialVersionUID = 1L;
     private double gravity;
+    
+    // attribut pour indiquer si la gravité a été inversée 
     private boolean inverted = false;
 
     public double getGravity() {

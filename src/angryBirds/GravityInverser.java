@@ -1,5 +1,7 @@
 package angryBirds;
 
+
+// person qui inverse la gravité quand un oiseau entre en collision avec lui.
 public class GravityInverser extends Character {
 
     private static final long serialVersionUID = 1L;
@@ -19,6 +21,12 @@ public class GravityInverser extends Character {
             setActivated(false);
         }
         return null;
+    }
+
+    @Override
+    public void outOfBoundaries() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

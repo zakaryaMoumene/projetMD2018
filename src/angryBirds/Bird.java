@@ -1,5 +1,6 @@
 package angryBirds;
 
+
 public class Bird extends Character {
 
     /**
@@ -7,8 +8,11 @@ public class Bird extends Character {
      */
     private static final long serialVersionUID = 1L;
     private double velocityX, velocityY;
+    
+    // le poid est propre à chaque oiseau
     private double weight;
 
+    // état de l'oiseau selon sa vitesse
     private Integer state = 0;
 
     public double getWeight() {
@@ -43,6 +47,7 @@ public class Bird extends Character {
         this.velocityY = velocityY;
     }
 
+    // changer l'apparence de l'oiseau selon sa vélocité 
     public void updateBirdAppearance() {
 
         if (state != -1) {
@@ -77,6 +82,8 @@ public class Bird extends Character {
         }
     }
 
+    
+    // gérer les collision avec les autres objets du jeu
     @Override
     public Integer collisionWith(Character character) {
         if (character instanceof Pig) {
@@ -106,6 +113,11 @@ public class Bird extends Character {
             }
         }
         return 0;
+    }
+    
+    public void outOfBoundaries(){
+        setDesign("bird_fail.png");
+        setActivated(false);
     }
 
     @Override

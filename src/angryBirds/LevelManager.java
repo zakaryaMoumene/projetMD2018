@@ -1,7 +1,9 @@
 package angryBirds;
 
+// class qui permet d'initialiser la partie 
 public class LevelManager {
 
+    // placer l'oiseau qui sera tiré
     public void nextBird(Game currentLevel) {
 
         currentLevel.setGameOver(false);
@@ -15,6 +17,8 @@ public class LevelManager {
 
     }
 
+    // initialiser les oiseaux ainsi que les éléments à recharger à chaque
+    // recommencement de partie
     public void startLevel(Game currentLevel) {
 
         currentLevel.setScore(0);
@@ -22,8 +26,9 @@ public class LevelManager {
         Bird bird;
         for (int i = 0; i < currentLevel.getNbBirds(); i++) {
             bird = new Bird("bird4.png");
-            bird.setPositionX(Window.resolutionX / 8 - i * Window.resolutionY / (Window.resolutionX/10));
-            bird.setPositionY(Window.resolutionY - Window.resolutionX/10);
+            bird.setPositionX(
+                    Window.resolutionX / 8 - i * Window.resolutionY / (Window.resolutionX / 10));
+            bird.setPositionY(Window.resolutionY - Window.resolutionX / 10);
             bird.setVelocityX(0);
             bird.setVelocityY(0);
             bird.setWeight(1.001);

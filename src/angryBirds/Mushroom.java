@@ -1,5 +1,7 @@
 package angryBirds;
 
+
+// agrandit et alourdit l'oiseau qui le mange
 public class Mushroom extends Character {
 
     /**
@@ -31,6 +33,12 @@ public class Mushroom extends Character {
     @Override
     public String toString() {
         return "Mushroom [mass=" + mass + "]";
+    }
+
+    @Override
+    public void outOfBoundaries() {
+        // TODO Auto-generated method stub
+        
     }
 
     

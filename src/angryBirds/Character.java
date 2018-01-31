@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+// chaque personnage a une position et une image et un attribut acitvated qui indique si le personnage doit être pris en compte ou pas (notamment lors des collisions)
 public abstract class Character implements Serializable {
 
     /**
@@ -33,13 +34,14 @@ public abstract class Character implements Serializable {
         return design;
     }
 
+    // peut prendre des gif annimés 
     public void setDesign(String imageUrl) {
         try {
             if (imageUrl.endsWith("gif"))
-                design = new ImageIcon("images/"+imageUrl).getImage();
+                design = new ImageIcon("images/" + imageUrl).getImage();
             else
-                design = (ImageIO.read(new File("images/"+imageUrl))).getScaledInstance(sizeX, sizeY,
-                        Image.SCALE_SMOOTH);
+                design = (ImageIO.read(new File("images/" + imageUrl))).getScaledInstance(sizeX,
+                        sizeY, Image.SCALE_SMOOTH);
             designUrl = imageUrl;
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,6 +65,8 @@ public abstract class Character implements Serializable {
     }
 
     public abstract Integer collisionWith(Character character);
+    
+    public abstract void outOfBoundaries();
 
     public Integer getSizeX() {
         return sizeX;

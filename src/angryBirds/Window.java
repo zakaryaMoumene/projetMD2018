@@ -15,11 +15,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// La classe qui regroupe tout ce qui est affichage et gestion de la souris
 public class Window extends Panel implements MouseListener, MouseMotionListener {
 
     /**
      * 
      */
+    
     static Integer resolutionX = 800;
     static Integer resolutionY = 600;
 

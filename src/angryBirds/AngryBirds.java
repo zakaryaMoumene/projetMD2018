@@ -4,6 +4,8 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+
+// classe principale qui va permettre de lancer le jeu
 public class AngryBirds {
 
     public static void main(String[] args) {

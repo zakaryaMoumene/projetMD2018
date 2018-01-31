@@ -1,5 +1,7 @@
 package angryBirds;
 
+
+// équivalent au trou noir, tue tout oiseau qui rentre en collision avec lui
 public class Fire extends Character {
 
     /**
@@ -26,6 +28,12 @@ public class Fire extends Character {
     @Override
     public String toString() {
         return "Fire [isActivated()=" + isActivated() + "]";
+    }
+
+    @Override
+    public void outOfBoundaries() {
+        // TODO Auto-generated method stub
+        
     }
 
    
